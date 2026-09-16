@@ -16,9 +16,8 @@ import { DatabaseModule } from '../database/database.module';
 
         JwtModule.register({
             secret: 'chave-secreta-explora',
-
             signOptions: {
-                expiresIn: '1d'
+                expiresIn: '1h'
             }
         })
 
