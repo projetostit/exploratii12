@@ -1,0 +1,39 @@
+# Compilação e Build
+/dist
+/build
+/out
+/.env
+
+# Dependências
+/node_modules
+/.pnp
+.pnp.js
+
+# Testes e Cobertura
+/coverage
+/.nyc_output
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Ambientes e Variáveis Locais (Crucial!)
+.env
+.env.development
+.env.production
+.env.*.local
+
+# IDEs e Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
