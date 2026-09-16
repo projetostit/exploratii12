@@ -11,16 +11,13 @@ import { DatabaseModule } from '../database/database.module';
 @Module({
 
     imports: [
-
         DatabaseModule,
-
         JwtModule.register({
             secret: 'chave-secreta-explora',
             signOptions: {
                 expiresIn: '1h'
             }
         })
-
     ],
 
     controllers: [
