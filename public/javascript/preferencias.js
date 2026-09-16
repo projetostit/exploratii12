@@ -18,11 +18,8 @@ const dadosCadastro =
 
 
 if (!dadosCadastro) {
-
     alert("Não foi possível encontrar os dados do cadastro.");
-
     window.location.href = "cadastro.html";
-
 }
 
 btnEscolherPreferencias.addEventListener(
@@ -30,13 +27,9 @@ btnEscolherPreferencias.addEventListener(
     abriModal
 );
 
-
 function abriModal(event) {
-
     event.preventDefault();
-
     modal.style.display = "block";
-
 }
 
 
@@ -279,7 +272,7 @@ async function finalizar(event) {
 
         const resposta =
             await fetch(
-                "http://localhost:3000/usuarios",
+                "/usuarios",
                 {
                     method: "POST",
 

@@ -1,6 +1,6 @@
 const btnCadastrar = document.getElementById("cadastrar");
 const formCadastro = document.querySelector("form");
-console.log('teste')
+
 formCadastro.addEventListener("submit", function(event) {
     event.preventDefault();
     const inputs = document.querySelectorAll(".barra_input input");
