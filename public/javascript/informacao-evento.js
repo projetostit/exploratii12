@@ -89,7 +89,7 @@ function renderizarIngressos(ingressos) {
     const precoMin = ordenados[0].preco;
 
     document.getElementById("info-preco-min").textContent =
-        `${Number(precoMin).toFixed(0)}R$`;
+        `R$${Number(precoMin).toFixed(0)}`;
 
     ingressos.forEach(ing => {
         const div = document.createElement("div");
@@ -98,7 +98,7 @@ function renderizarIngressos(ingressos) {
             <h2>${ing.nome_ingresso}</h2>
             <p>
                 <span style="color: ${corStatus(ing.status)};">&bull;</span>
-                ${Number(ing.preco).toFixed(0)}R$ - ${ing.status}
+                R$${Number(ing.preco).toFixed(0)} - ${ing.status}
             </p>
         `;
         container.appendChild(div);
