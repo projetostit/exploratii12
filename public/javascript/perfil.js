@@ -67,7 +67,7 @@ if (btnLogout) {
             localStorage.removeItem("token");
             localStorage.removeItem("usuario");
 
-            window.location.href = "/public/index.html";
+            window.location.href = "../index.html";
 
         }
 
