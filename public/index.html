@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
@@ -138,7 +138,16 @@
         <script src="./javascript/menu.js"></script>
         <script src="./javascript/acessibilidade.js"></script>
         <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+        <script>
+            if (window.VLibras) { 
+                new window.VLibras.Widget({ rootPath: 'https://vlibras.gov.br/app', position: 'BR' }); 
+                // Atribui um ID ao container do VLibras logo após o carregamento para facilitar o controle via CSS
+                setTimeout(() => {
+                    let vwEl = document.querySelector('div[vw]');
+                    if (vwEl) vwEl.id = 'widget-vlibras-custom';
+                }, 400);
+            }
+        </script>
         
     </body>
-
     </html>
