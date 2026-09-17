@@ -2,8 +2,8 @@
     padding: 0;
     margin: 0;
     font-family: "Inter", sans-serif;
-    
 }
+
 :root{
     --verde: #1A824D;
     --azul: #2678BF;
@@ -21,25 +21,24 @@
     --card-carousel-height: 234px;
     --card-carousel-img-height: 155px;
 }
-/*MAIN*/
-/*CARROSEL*/
+
 .carrosel{
-     background: url(../img/carrosel_tela_inicial.png) no-repeat center;
-    background-size: cover; 
+    background: url(../img/carrosel_tela_inicial.png) no-repeat center;
+    background-size: cover;
     height: 50vh;
     align-items: center;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    
 }
+
 .carrosel p{
     font-weight: bold;
     color: white;
     text-align: center;
     margin-bottom: 20px;
 }
-/*BOTÃO BARRA DE PESQUISA*/
+
 .carrosel .barra_pesquisa{
     width: min(693px, calc(100% - 40px));
     background-color: white;
@@ -50,6 +49,7 @@
     justify-content: center;
     align-items: center;
 }
+
 input{
     flex: 1;
     min-width: 0;
@@ -59,9 +59,11 @@ input{
     border: 0;
     margin-left: 20px;
 }
+
 input:focus{
     outline: none;
 }
+
 .btn_pesquisar{
     display: flex;
     border-radius: var(--borda-botao);
@@ -79,11 +81,11 @@ input:focus{
     white-space: nowrap;
     flex-shrink: 0;
 }
+
 .btn_pesquisar .bi-search{
     color: white;
-    
 }
-/*ITENS QUE APARECEM NA DURANTE A PESQUISA*/
+
 .itens-pesquisa{
     background-color: white;
     max-height: 300px;
@@ -93,28 +95,29 @@ input:focus{
     border-bottom-left-radius: var(--borda-caixa);
     border-bottom-right-radius: var(--borda-caixa);
     padding: 20px;
-    flex-direction: column;    
+    flex-direction: column;
     position: absolute;
     top: 64px;
     z-index: 1000;
     display: none;
-    
     gap: 5px;
 }
+
 .itens-pesquisa a{
     text-decoration: none;
     display: flex;
-    align-items: center; 
-    display: flex;
+    align-items: center;
     gap: 14px;
     justify-content: left;
     padding: 10px;
     border-radius: var(--borda-caixa);
 }
+
 .itens-pesquisa a:hover{
     background-color: #d9d9d9;
     transition: 0.2s;
 }
+
 .itens-pesquisa a img{
     width: 85px;
     border-radius: var(--borda-caixa);
@@ -122,42 +125,47 @@ input:focus{
     border: 1px solid var(--verde);
     box-shadow: var(--sombra);
 }
+
 .itens-pesquisa .data_evento{
     position: initial;
-    
     margin: 0 auto 0 0;
 }
+
 .itens-pesquisa .texto-evento{
     display: flex;
     flex-direction: column;
-    gap: 10px;  
+    gap: 10px;
 }
+
 .itens-pesquisa .texto-evento p{
     color: black;
     text-align: left;
     padding: 0px;
     margin: 0;
 }
+
 .itens-pesquisa .texto-evento .distancia_show{
     color: #8e8e8e;
 }
+
 .itens-pesquisa #txt-pesquisas{
     display: none;
     color: black;
     text-align: center;
     margin: 0;
 }
+
 .itens-pesquisa #txt-vermais-eventos{
     display: none;
     color: black;
     font-weight: bold;
     margin: auto;
 }
+
 .itens-pesquisa #txt-vermais-eventos:hover{
     text-decoration: underline;
-    
 }
-/*EVENTOS EM DESTAQUE E PRÓXIMOS*/
+
 .linha_eventos{
     padding: 20px;
     display: flex;
@@ -174,6 +182,7 @@ input:focus{
     font-weight: bolder;
     font-size: 2rem;
 }
+
 .caixa_eventos{
     width: var(--card-width);
     height: var(--card-height);
@@ -183,6 +192,7 @@ input:focus{
     box-shadow: 5px 5px 10px #8e8e8e;
     flex-shrink: 0;
 }
+
 .caixa_eventos a img{
     width: 100%;
     height: var(--card-img-height);
@@ -190,22 +200,27 @@ input:focus{
     border-top-left-radius: var(--card-radius);
     border-top-right-radius: var(--card-radius);
 }
+
 .caixa_eventos .texto-evento{
     margin-left: 7px;
     margin-top: 3px;
 }
+
 .caixa_eventos .nome_show{
     font-weight: bold;
     font-size: 14px;
 }
+
 .caixa_eventos .distancia_show{
     color: #8e8e8e;
     font-size: 11px;
 }
+
 .caixa_eventos:hover{
     transform: translateY(-5px);
     transition: 0.5s;
 }
+
 .data_evento{
     position: absolute;
     padding: 5px;
@@ -217,14 +232,12 @@ input:focus{
     cursor: pointer;
     font-weight: bold;
 }
+
 .data_evento:hover{
     background-color: white;
     border: 1px solid var(--azul);
     color: var(--azul);
 }
-
-
-/*CARROSEL EVENTOS RESPOSIVO*/
 
 .carrosel-eventos{
     width: var(--card-carousel-width);
@@ -234,6 +247,7 @@ input:focus{
     font-weight: bold;
     box-shadow: 5px 5px 10px #8e8e8e;
 }
+
 .carrosel-eventos a img{
     width: 100%;
     height: var(--card-carousel-img-height);
@@ -241,20 +255,22 @@ input:focus{
     border-top-left-radius: var(--card-radius);
     border-top-right-radius: var(--card-radius);
 }
+
 .carrosel-eventos .texto-evento{
     padding: 5px;
 }
+
 .carrosel-eventos .nome_show{
     font-weight: bold;
     font-size: 14px;
 }
+
 .carrosel-eventos .distancia_show{
     color: #8e8e8e;
     font-size: 14px;
     font-weight: bold;
 }
 
-/*BARRA PESQUISA*/
 @media screen and (max-width: 770px){
     .carrosel{
         height: 40vh;
@@ -298,9 +314,7 @@ input:focus{
         font-size: 13px;
     }
 }
-/*BARRA PESQUISA*/
 
-/*LINHA EVENTOS*/
 @media screen and (max-width: 1244px){
     .linha_eventos{
         grid-template-columns: repeat(auto-fill, var(--card-width-md));
@@ -394,4 +408,24 @@ input:focus{
     .carrosel-eventos .distancia_show{
         font-size: 12px;
     }
+}
+
+div[vw], 
+div[vw-plugin-wrapper] {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    left: auto !important;
+    top: auto !important;
+    z-index: 99999 !important;
+}
+
+
+#a11y-botao {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    right: auto !important;
+    top: auto !important;
+    z-index: 99998 !important;
 }
