@@ -1,57 +1,20 @@
 /* =========================================
-   AUTENTICAÇÃO
+   TOKEN E LOGOUT
 ========================================= */
 
 const token = localStorage.getItem("token");
+const btnLogout = document.getElementById("btn-logout");
 
-const btnEntrar =
-    document.querySelectorAll("#entrar");
-
-const btnCadastrar =
-    document.querySelectorAll("#cadastrar");
-
-const btnLogout =
-    document.getElementById("btn-logout");
-
-
-function atualizarMenu() {
-
-    if (token) {
-
-        btnEntrar.forEach(botao => {
-            botao.style.display = "none";
-        });
-
-        btnCadastrar.forEach(botao => {
-            botao.style.display = "none";
-        });
-
-        if (btnLogout) {
-            btnLogout.style.display = "block";
+if (btnLogout) {
+    btnLogout.addEventListener("click", () => {
+        let confirmacao = confirm("Tem certeza que quer sair da conta");
+        if (confirmacao) {
+            localStorage.removeItem("token");
+            localStorage.removeItem("usuario");
+            window.location.href = "/public/index.html";
         }
-
-    } else {
-
-        btnEntrar.forEach(botao => {
-            botao.style.display = "block";
-        });
-
-        btnCadastrar.forEach(botao => {
-            botao.style.display = "block";
-        });
-
-        if (btnLogout) {
-            btnLogout.style.display = "none";
-        }
-
-    }
-
+    });
 }
-
-
-atualizarMenu();
-
-
 /* =========================================
    SAIR
 ========================================= */

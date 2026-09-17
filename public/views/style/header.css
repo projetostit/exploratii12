@@ -41,9 +41,11 @@ header .botoes_cadastro{
     align-items: center;
     display: flex;
     gap: 20px;
-        width: 236px;
-        padding: 3px 5px;
+    width: 236px;
     justify-content: center;
+}
+header #btn-logout{
+    padding: 2px 4px;
 }
 #entrar{
     padding: 9px 16px;
@@ -163,6 +165,19 @@ header .botoes_cadastro{
     align-items: center;
     display: flex;
     justify-content: space-between;
+}
+.botoes_cadastro .btn-perfil {
+    background: #1A824D;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.botoes_cadastro .btn-perfil:hover {
+    background: #2678BF;
 }
 /*HEADER RESPONDIVEL*/
 @media screen and (max-width: 780px){
