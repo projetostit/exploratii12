@@ -6,36 +6,17 @@ const token = localStorage.getItem("token");
 const btnLogout = document.getElementById("btn-logout");
 
 if (btnLogout) {
+    btnLogout.style.display = token ? "block" : "none";
+
     btnLogout.addEventListener("click", () => {
-        let confirmacao = confirm("Tem certeza que quer sair da conta");
+        const confirmacao = confirm("Tem certeza que quer sair da conta?");
+
         if (confirmacao) {
             localStorage.removeItem("token");
             localStorage.removeItem("usuario");
-            window.location.href = "/public/index.html";
-        }
-    });
-}
-/* =========================================
-   SAIR
-========================================= */
-
-if (btnLogout) {
-    btnLogout.addEventListener("click", () => {
-
-        let confirmacao =
-            confirm("Tem certeza que quer sair da conta");
-
-        if (confirmacao) {
-
-            localStorage.removeItem("token");
-            localStorage.removeItem("usuario");
-
             window.location.href = "../index.html";
-
         }
-
     });
-
 }
 
 
