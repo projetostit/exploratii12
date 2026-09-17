@@ -1,5 +1,3 @@
-
-
 const API_URL = "/eventos";
 
 function formatarDataLonga(data) {
@@ -40,6 +38,11 @@ async function carregarEvento() {
         if (!resposta.ok) throw new Error("Evento não encontrado");
 
         const evento = await resposta.json();
+
+        const carrosel = document.getElementById("carroselEvento");
+
+        carrosel.style.backgroundImage =
+        `url("${evento.imagem || "img/imagem-eveto-web.png"}")`;
 
         document.getElementById("info-nome").textContent = evento.nome_evento;
         document.getElementById("info-descricao").textContent = evento.descricao;
