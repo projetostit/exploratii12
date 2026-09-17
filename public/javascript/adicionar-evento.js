@@ -381,14 +381,6 @@ btnCancelar.addEventListener(
     fecharModal
 );
 
-// FECHAR CLICANDO FORA
-
-window.addEventListener("click", event => {
-    if (event.target === modal) {
-        fecharModal();
-    }
-});
-
 
 function criarBotaoAdicionarArtista() {
     const botao = document.getElementById("btnAdicionarArtista");
