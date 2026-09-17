@@ -56,7 +56,7 @@ function formatarData(data) {
 function criarCardEvento(evento) {
     return `
         <div class="caixa_eventos">
-            <a href="views/informação_evento.html?id=${evento.id}">
+            <a href="views/informacao_evento.html?id=${evento.id}">
                 <span class="data_evento">${formatarData(evento.data)}</span>
                 <img src="${evento.imagem || 'img/sem-imagem.png'}" alt="${evento.nome_evento}">
             </a>
@@ -71,7 +71,7 @@ function criarCardEvento(evento) {
 function criarCardCarrossel(evento) {
     return `
         <div class="carrosel-eventos">
-            <a href="views/informação_evento.html?id=${evento.id}">
+            <a href="views/informacao_evento.html?id=${evento.id}">
                 <span class="data_evento">${formatarData(evento.data)}</span>
                 <img src="${evento.imagem || 'img/sem-imagem.png'}" alt="${evento.nome_evento}">
             </a>
@@ -85,7 +85,7 @@ function criarCardCarrossel(evento) {
 
 function criarItemPesquisa(evento) {
     return `
-        <a href="views/informação_evento.html?id=${evento.id}">
+        <a href="views/informacao_evento.html?id=${evento.id}">
             <img src="${evento.imagem || 'img/sem-imagem.png'}" alt="${evento.nome_evento}">
             <div class="texto-evento">
                 <span class="data_evento">${formatarData(evento.data)}</span>
