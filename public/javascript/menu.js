@@ -42,7 +42,7 @@ function atualizarBotoesAuth() {
         document.querySelectorAll("header .botoes_cadastro, .barra-lateral-header .botoes_cadastro").forEach(grupo => {
             if (!grupo.querySelector(".btn-perfil")) {
                 const btnPerfil = document.createElement("a");
-                btnPerfil.href = estaEmViews() ? "perfil.html" : "../perfil.html";
+                btnPerfil.href = estaEmViews() ? "perfil.html" : "../views/perfil.html";
                 btnPerfil.className = "btn-perfil";
                 btnPerfil.textContent = "Meu Perfil";
                 grupo.appendChild(btnPerfil);
