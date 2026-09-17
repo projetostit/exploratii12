@@ -410,22 +410,46 @@ input:focus{
     }
 }
 
-div[vw], 
-div[vw-plugin-wrapper] {
+#a11y-botao {
     position: fixed !important;
     bottom: 20px !important;
     right: 20px !important;
     left: auto !important;
     top: auto !important;
-    z-index: 99999 !important;
+    z-index: 99998 !important;
 }
 
-
-#a11y-botao {
+#widget-vlibras-custom,
+div[vw] {
     position: fixed !important;
-    bottom: 20px !important;
-    left: 20px !important;
-    right: auto !important;
+    bottom: 80px !important;
+    right: 20px !important;
+    left: auto !important;
     top: auto !important;
-    z-index: 99998 !important;
+    z-index: 99999 !important;
+    width: 50px !important;
+    height: 50px !important;
+    min-height: unset !important;
+}
+
+div[vw-plugin-wrapper] {
+    position: absolute !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    width: 50px !important;
+    height: 50px !important;
+}
+
+#a11y-menu, 
+.a11y-menu-container, 
+div[role="dialog"],
+.accessibility-menu,
+[class*="a11y-menu"] {
+    position: fixed !important;
+    bottom: 80px !important;
+    right: 20px !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    z-index: 99999 !important;
 }
