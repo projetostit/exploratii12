@@ -1,55 +1,12 @@
+
 /* =========================================
    AUTENTICAÇÃO
 ========================================= */
 
 const token = localStorage.getItem("token");
 
-const btnEntrar =
-    document.querySelectorAll("#entrar");
-
-const btnCadastrar =
-    document.querySelectorAll("#cadastrar");
-
 const btnLogout =
     document.getElementById("btn-logout");
-
-
-function atualizarMenu() {
-
-    if (token) {
-
-        btnEntrar.forEach(botao => {
-            botao.style.display = "none";
-        });
-
-        btnCadastrar.forEach(botao => {
-            botao.style.display = "none";
-        });
-
-        if (btnLogout) {
-            btnLogout.style.display = "block";
-        }
-
-    } else {
-
-        btnEntrar.forEach(botao => {
-            botao.style.display = "block";
-        });
-
-        btnCadastrar.forEach(botao => {
-            botao.style.display = "block";
-        });
-
-        if (btnLogout) {
-            btnLogout.style.display = "none";
-        }
-
-    }
-
-}
-
-
-atualizarMenu();
 
 
 /* =========================================
@@ -57,6 +14,7 @@ atualizarMenu();
 ========================================= */
 
 if (btnLogout) {
+
     btnLogout.addEventListener("click", () => {
 
         let confirmacao =
@@ -67,7 +25,8 @@ if (btnLogout) {
             localStorage.removeItem("token");
             localStorage.removeItem("usuario");
 
-            window.location.href = "../index.html";
+            window.location.href =
+                "../index.html";
 
         }
 
@@ -173,7 +132,8 @@ async function carregarPerfil() {
 
     if (!token) {
 
-        window.location.href = "./login.html";
+        window.location.href =
+            "./login.html";
 
         return;
 
@@ -283,7 +243,9 @@ async function carregarPerfil() {
         if (notificacaoEmail) {
 
             notificacaoEmail.checked =
-                Boolean(usuario.notificacoes_email);
+                Boolean(
+                    usuario.notificacoes_email
+                );
 
         }
 
@@ -291,7 +253,9 @@ async function carregarPerfil() {
         if (alertasEventos) {
 
             alertasEventos.checked =
-                Boolean(usuario.alertas_eventos);
+                Boolean(
+                    usuario.alertas_eventos
+                );
 
         }
 
@@ -299,7 +263,9 @@ async function carregarPerfil() {
         if (notificacoesOfertas) {
 
             notificacoesOfertas.checked =
-                Boolean(usuario.notificacoes_ofertas);
+                Boolean(
+                    usuario.notificacoes_ofertas
+                );
 
         }
 
@@ -380,9 +346,11 @@ if (btnSalvar) {
 
                 sobrenome: sobrenome,
 
-                email: inputEmail.value.trim(),
+                email:
+                    inputEmail.value.trim(),
 
-                telefone: inputTelefone.value.trim(),
+                telefone:
+                    inputTelefone.value.trim(),
 
                 estado: estado
 
@@ -521,7 +489,8 @@ function corTexto() {
 
     botoes.forEach(btn => {
 
-        btn.style.color = "black";
+        btn.style.color =
+            "black";
 
     });
 
@@ -532,7 +501,8 @@ function boxSome() {
 
     caixas.forEach(box => {
 
-        box.style.display = "none";
+        box.style.display =
+            "none";
 
     });
 
@@ -649,3 +619,4 @@ if (btnAplicarModal) {
     );
 
 }
+
