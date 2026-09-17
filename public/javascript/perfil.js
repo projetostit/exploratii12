@@ -1,22 +1,78 @@
 /* =========================================
-   TOKEN E LOGOUT
+   AUTENTICAÇÃO
 ========================================= */
 
 const token = localStorage.getItem("token");
-const btnLogout = document.getElementById("btn-logout");
+
+const btnEntrar =
+    document.querySelectorAll("#entrar");
+
+const btnCadastrar =
+    document.querySelectorAll("#cadastrar");
+
+const btnLogout =
+    document.getElementById("btn-logout");
+
+
+function atualizarMenu() {
+
+    if (token) {
+
+        btnEntrar.forEach(botao => {
+            botao.style.display = "none";
+        });
+
+        btnCadastrar.forEach(botao => {
+            botao.style.display = "none";
+        });
+
+        if (btnLogout) {
+            btnLogout.style.display = "block";
+        }
+
+    } else {
+
+        btnEntrar.forEach(botao => {
+            botao.style.display = "block";
+        });
+
+        btnCadastrar.forEach(botao => {
+            botao.style.display = "block";
+        });
+
+        if (btnLogout) {
+            btnLogout.style.display = "none";
+        }
+
+    }
+
+}
+
+
+atualizarMenu();
+
+
+/* =========================================
+   SAIR
+========================================= */
 
 if (btnLogout) {
-    btnLogout.style.display = token ? "block" : "none";
-
     btnLogout.addEventListener("click", () => {
-        const confirmacao = confirm("Tem certeza que quer sair da conta?");
+
+        let confirmacao =
+            confirm("Tem certeza que quer sair da conta");
 
         if (confirmacao) {
+
             localStorage.removeItem("token");
             localStorage.removeItem("usuario");
+
             window.location.href = "../index.html";
+
         }
+
     });
+
 }
 
 
