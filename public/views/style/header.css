@@ -42,6 +42,7 @@ header .botoes_cadastro{
     display: flex;
     gap: 20px;
         width: 236px;
+        padding: 3px 5px;
     justify-content: center;
 }
 #entrar{
