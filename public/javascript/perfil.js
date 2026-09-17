@@ -5,34 +5,28 @@
 
 const token = localStorage.getItem("token");
 
-const btnLogout =
-    document.getElementById("btn-logout");
+const botoesLogout =
+    document.querySelectorAll("#btn-logout");
 
+botoesLogout.forEach(botao => {
 
-/* =========================================
-   SAIR
-========================================= */
+    botao.addEventListener("click", () => {
 
-if (btnLogout) {
-
-    btnLogout.addEventListener("click", () => {
-
-        let confirmacao =
-            confirm("Tem certeza que quer sair da conta");
+        const confirmacao =
+            confirm("Tem certeza que quer sair da conta?");
 
         if (confirmacao) {
 
             localStorage.removeItem("token");
             localStorage.removeItem("usuario");
 
-            window.location.href =
-                "../index.html";
+            window.location.href = "../index.html";
 
         }
 
     });
 
-}
+});
 
 
 /* =========================================
