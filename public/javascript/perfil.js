@@ -1,3 +1,7 @@
+/* =========================================
+   AUTENTICAÇÃO
+========================================= */
+
 const token = localStorage.getItem("token");
 
 const btnEntrar =
@@ -47,22 +51,34 @@ function atualizarMenu() {
 
 atualizarMenu();
 
+
+/* =========================================
+   SAIR
+========================================= */
+
 if (btnLogout) {
-
     btnLogout.addEventListener("click", () => {
-        let confirmacao = confirm('Tem certeza que quer sair da conta')
-        if(confirmacao){
-            localStorage.removeItem("token");
 
+        let confirmacao =
+            confirm("Tem certeza que quer sair da conta");
+
+        if (confirmacao) {
+
+            localStorage.removeItem("token");
             localStorage.removeItem("usuario");
 
-            window.location.href = "/index.html";
+            window.location.href = "/public/index.html";
+
         }
-        
 
     });
 
 }
+
+
+/* =========================================
+   ELEMENTOS DO PERFIL
+========================================= */
 
 const nomePerfil =
     document.querySelector(".info-usuario h1");
@@ -72,6 +88,9 @@ const descricaoPerfil =
 
 const inputNome =
     document.getElementById("nome-usuario");
+
+const inputSobrenome =
+    document.getElementById("sobrenome-usuario");
 
 const inputEmail =
     document.getElementById("email-usuario");
@@ -87,6 +106,11 @@ const btnSalvar =
 
 const modalSalvar =
     document.querySelector(".modal-salvar");
+
+
+/* =========================================
+   ESTADOS
+========================================= */
 
 function transformarEstado(estado) {
 
@@ -140,6 +164,11 @@ function nomeEstado(value) {
 
 }
 
+
+/* =========================================
+   CARREGAR PERFIL
+========================================= */
+
 async function carregarPerfil() {
 
     if (!token) {
@@ -150,19 +179,21 @@ async function carregarPerfil() {
 
     }
 
-
     try {
 
-        const resposta = await fetch(
-            "/usuarios/perfil",
-            {
-                method: "GET",
+        const resposta =
+            await fetch(
+                "http://localhost:3000/usuarios/perfil",
+                {
+                    method: "GET",
 
-                headers: {
-                    "Authorization": `Bearer ${token}`
+                    headers: {
+                        "Authorization":
+                            `Bearer ${token}`
+                    }
+
                 }
-            }
-        );
+            );
 
 
         const resultado =
@@ -177,7 +208,8 @@ async function carregarPerfil() {
 
                 localStorage.removeItem("usuario");
 
-                window.location.href = "./login.html";
+                window.location.href =
+                    "./login.html";
 
                 return;
 
@@ -198,6 +230,7 @@ async function carregarPerfil() {
             resultado.usuario;
 
 
+        /* CABEÇALHO */
 
         nomePerfil.textContent =
             `${usuario.nome} ${usuario.sobrenome}`;
@@ -207,8 +240,14 @@ async function carregarPerfil() {
             `Explorador de eventos - ${usuario.estado}`;
 
 
+        /* CAMPOS */
+
         inputNome.value =
             usuario.nome;
+
+
+        inputSobrenome.value =
+            usuario.sobrenome;
 
 
         inputEmail.value =
@@ -222,6 +261,8 @@ async function carregarPerfil() {
         selectEstado.value =
             transformarEstado(usuario.estado);
 
+
+        /* NOTIFICAÇÕES */
 
         const notificacaoEmail =
             document.querySelector(
@@ -262,6 +303,9 @@ async function carregarPerfil() {
 
         }
 
+
+        /* LOCAL STORAGE */
+
         localStorage.setItem(
             "usuario",
             JSON.stringify(usuario)
@@ -280,10 +324,16 @@ async function carregarPerfil() {
         );
 
     }
+
 }
 
 
 carregarPerfil();
+
+
+/* =========================================
+   SALVAR ALTERAÇÕES
+========================================= */
 
 if (btnSalvar) {
 
@@ -294,29 +344,21 @@ if (btnSalvar) {
             event.preventDefault();
 
 
-            const nomeCompleto =
+            const nome =
                 inputNome.value.trim();
 
 
-            if (!nomeCompleto) {
+            const sobrenome =
+                inputSobrenome.value.trim();
+
+
+            if (!nome) {
 
                 alert("Digite seu nome.");
 
                 return;
 
             }
-
-
-            const partesNome =
-                nomeCompleto.split(/\s+/);
-
-
-            const nome =
-                partesNome.shift();
-
-
-            const sobrenome =
-                partesNome.join(" ");
 
 
             if (!sobrenome) {
@@ -351,7 +393,7 @@ if (btnSalvar) {
 
                 const resposta =
                     await fetch(
-                        "/usuarios/perfil",
+                        "http://localhost:3000/usuarios/perfil",
                         {
                             method: "PATCH",
 
@@ -384,6 +426,9 @@ if (btnSalvar) {
 
                 }
 
+
+                /* ATUALIZA CABEÇALHO */
+
                 nomePerfil.textContent =
                     `${dados.nome} ${dados.sobrenome}`;
 
@@ -391,6 +436,8 @@ if (btnSalvar) {
                 descricaoPerfil.textContent =
                     `Explorador de eventos - ${dados.estado}`;
 
+
+                /* ATUALIZA LOCAL STORAGE */
 
                 const usuarioAtual =
                     JSON.parse(
@@ -421,6 +468,8 @@ if (btnSalvar) {
                 );
 
 
+                /* MODAL */
+
                 modalSalvar.style.display =
                     "flex";
 
@@ -430,7 +479,7 @@ if (btnSalvar) {
                     modalSalvar.style.display =
                         "none";
 
-                }, 1000);
+                }, 1600);
 
 
             } catch (erro) {
@@ -450,6 +499,11 @@ if (btnSalvar) {
     );
 
 }
+
+
+/* =========================================
+   ABRIR E FECHAR CAIXAS
+========================================= */
 
 const botoes =
     document.querySelectorAll(
@@ -484,6 +538,9 @@ function boxSome() {
 
 }
 
+
+/* ATIVIDADE */
+
 botoes[0].addEventListener(
     "click",
     () => {
@@ -500,6 +557,9 @@ botoes[0].addEventListener(
 
     }
 );
+
+
+/* FAVORITOS */
 
 botoes[1].addEventListener(
     "click",
@@ -518,6 +578,9 @@ botoes[1].addEventListener(
     }
 );
 
+
+/* CONFIGURAÇÕES */
+
 botoes[2].addEventListener(
     "click",
     () => {
@@ -534,6 +597,11 @@ botoes[2].addEventListener(
 
     }
 );
+
+
+/* =========================================
+   MODAL DE PREFERÊNCIAS
+========================================= */
 
 const btnEscolherPreferencias =
     document.querySelector(
@@ -581,4 +649,3 @@ if (btnAplicarModal) {
     );
 
 }
-
