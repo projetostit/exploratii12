@@ -333,7 +333,7 @@
     display: flex;
     flex-direction: column;
 }
-.recomendados{
+.eventos-recomendados{
     width: 80%;
     height: 200px;
     border: 2px solid var(--verde);
@@ -344,16 +344,16 @@
     
     position: relative;
 }
-.recomendados a img{
+.eventos-recomendados a img{
     width: 100%;
     height: 145px;
     border-top-left-radius: 14px;
     border-top-right-radius: 14px;
 }
-.recomendados .texto-evento{
+.eventos-recomendados .texto-evento{
     padding: 5px;
 }
-.recomendados .data_evento{
+.eventos-recomendados .data_evento{
     position: absolute;
     padding: 5px;
     background-color: var(--azul);
@@ -443,7 +443,7 @@
     #recomendados{
         width: 600px;
     }
-    .recomendados{
+    .eventos-recomendados{
         width: 60%;
     }
     #ingressos .fechar-menu{
@@ -507,7 +507,7 @@
     }
 }
 @media screen and (max-width: 630px){
-    .recomendados{
+    .eventos-recomendados{
         width: 70%;
     }
 }
@@ -548,7 +548,7 @@
     }
 }
 @media screen and (max-width: 510px){
-    .recomendados{
+    .eventos-recomendados{
         width: 80%;
     }
     #ingressos{
@@ -582,7 +582,7 @@
     }
 }
 @media screen and (max-width: 420px){
-    .recomendados{
+    .eventos-recomendados{
         width: 90%;
     }
     #recomendados{
