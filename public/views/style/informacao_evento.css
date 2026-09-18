@@ -334,7 +334,7 @@
     flex-direction: column;
 }
 .eventos-recomendados{
-    width: 80%;
+    max-width: 80%;
     height: 200px;
     border: 2px solid var(--verde);
     border-radius: 14px;
