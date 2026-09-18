@@ -407,7 +407,6 @@
     margin: auto;
     box-sizing: border-box;
 }
-
 .eventos-recomendados{
     width: 100%;
     max-width: 100%;
@@ -439,28 +438,22 @@
 }
 
 .eventos-recomendados .texto-evento{
-    padding: 5px;
+    padding: 7px 10px;
+    height: 55px;
+    box-sizing: border-box;
     overflow: hidden;
+    background-color: white;
 }
 
-.eventos-recomendados .data_evento{
-    position: absolute;
-    padding: 5px;
-    background-color: var(--azul);
-    margin: 10px 0px 0px 10px;
-    border-radius: 10px;
-    color: white;
-    font-size: 0.9rem;
-    cursor: pointer;
+.nome_show{
+    margin: 0;
     font-weight: bold;
-}
-
-.nome_show,
-.distancia_show{
-    font-weight: bold;
+    font-size: 1rem;
+    color: black;
 }
 
 .distancia_show{
+    margin: 3px 0 0;
     color: #8e8e8e;
     font-size: 0.7rem;
 }
