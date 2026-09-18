@@ -40,7 +40,7 @@ async function carregarEvento() {
         const carrosel = document.getElementById("carroselEvento");
 
         carrosel.style.backgroundImage =
-        `url("${evento.imagem || "img/imagem-eveto-web.png"}")`;
+        `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("${evento.imagem || "img/imagem-eveto-web.png"}")`;
 
         document.getElementById("info-nome").textContent = evento.nome_evento;
         document.getElementById("info-descricao").textContent = evento.descricao;
