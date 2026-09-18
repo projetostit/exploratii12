@@ -412,7 +412,7 @@
     width: 100%;
     max-width: 100%;
     min-width: 0;
-    height: 200px;
+    height: 100%;
     border: 2px solid var(--verde);
     border-radius: 14px;
     font-weight: bold;
