@@ -443,9 +443,6 @@
     #recomendados{
         width: 600px;
     }
-    .eventos-recomendados{
-        width: 60%;
-    }
     #ingressos .fechar-menu{
     display: block;
     
@@ -507,9 +504,7 @@
     }
 }
 @media screen and (max-width: 630px){
-    .eventos-recomendados{
-        width: 70%;
-    }
+    
 }
 @media screen and (max-width: 604px){
     #atracoes{
@@ -548,9 +543,7 @@
     }
 }
 @media screen and (max-width: 510px){
-    .eventos-recomendados{
-        width: 80%;
-    }
+    
     #ingressos{
         width: 80%; 
     }
@@ -582,9 +575,7 @@
     }
 }
 @media screen and (max-width: 420px){
-    .eventos-recomendados{
-        width: 90%;
-    }
+   
     #recomendados{
         padding: 20px;
     }
