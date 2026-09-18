@@ -151,7 +151,7 @@ async function carregarSimilares(idAtual) {
             const div = document.createElement("div");
             div.classList.add("eventos-recomendados");
             div.innerHTML = `
-                <a href="../informação_evento.html?id=${ev.id}">
+                <a href="informacao_evento.html?id=${ev.id}">
                     <span class="data_evento">${formatarDataCurta(ev.data)}</span>
                     <img src="${ev.imagem || 'img/sem-imagem.png'}" alt="${ev.nome_evento}">
                 </a>
