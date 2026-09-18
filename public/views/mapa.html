@@ -117,14 +117,8 @@
                 </div>
             </div>
         </section>
-        <section class="mapa">
-            
-                <iframe
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+        <section class="mapa">            
+                <div id="mapa"></div>
                 <button class="btn-preferencia-resposivo">Filtrar<i class="bi bi-funnel-fill"></i></button>
                 <div class="barra_pesquisa">
                     <input type="text"  placeholder="Buscar eventos, locais..." class="input-pesquisa">
@@ -154,6 +148,7 @@
             </div>
         </div>
     </footer>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="../javascript/menu.js"></script>
     <script src="../javascript/filtros-mapa.js"></script>
     <script src="../javascript/barra-pesquisa-mapa.js"></script>
