@@ -604,7 +604,7 @@ main i{
         width: 85%;
     }
     .box-dados{
-        max-height: 590px;
+        max-height: 100%;
         margin: auto; 
         width: 85%;
     }

@@ -1,3 +1,4 @@
+
 let boxPesquisa = document.querySelector(".itens-pesquisa");
 let inputCarrosel = document.querySelector(".input-pesquisa");
 
@@ -19,37 +20,39 @@ inputCarrosel.addEventListener("input", (evento) => {
 
     itens.forEach(item => {
         if (formatText(item.textContent).indexOf(valorInput) === -1) {
-            item.style.display = 'none';
+            item.style.display = "none";
         } else {
-            item.style.display = 'flex';
+            item.style.display = "flex";
             todosResultados = true;
         }
     });
 
     if (todosResultados) {
-        if (txtSemResultados) txtSemResultados.style.display = 'none';
-        if (vermaisEventos) vermaisEventos.style.display = 'block';
+        if (txtSemResultados) txtSemResultados.style.display = "none";
+        if (vermaisEventos) vermaisEventos.style.display = "block";
     } else {
-        if (txtSemResultados) txtSemResultados.style.display = 'block';
-        if (vermaisEventos) vermaisEventos.style.display = 'none';
+        if (txtSemResultados) txtSemResultados.style.display = "block";
+        if (vermaisEventos) vermaisEventos.style.display = "none";
     }
 
-    boxPesquisa.style.display = 'flex';
+    boxPesquisa.style.display = "flex";
 });
 
 document.addEventListener("click", (event) => {
     let documentoClick = event.target;
+
     if (documentoClick !== inputCarrosel && documentoClick !== boxPesquisa) {
-        if (boxPesquisa) boxPesquisa.style.display = 'none';
+        if (boxPesquisa) boxPesquisa.style.display = "none";
     }
 });
-
 
 const API_URL = "/eventos";
 
 function formatarData(data) {
     if (!data) return "";
+
     const partes = data.split("T")[0].split("-");
+
     return `${partes[2]}/${partes[1]}`;
 }
 
@@ -58,7 +61,7 @@ function criarCardEvento(evento) {
         <div class="caixa_eventos">
             <a href="views/informacao_evento.html?id=${evento.id}">
                 <span class="data_evento">${formatarData(evento.data)}</span>
-                <img src="${evento.imagem || 'img/sem-imagem.png'}" alt="${evento.nome_evento}">
+                <img src="${evento.imagem || "img/sem-imagem.png"}" alt="${evento.nome_evento}">
             </a>
             <div class="texto-evento">
                 <p class="nome_show">${evento.nome_evento}</p>
@@ -73,7 +76,7 @@ function criarCardCarrossel(evento) {
         <div class="carrosel-eventos">
             <a href="views/informacao_evento.html?id=${evento.id}">
                 <span class="data_evento">${formatarData(evento.data)}</span>
-                <img src="${evento.imagem || 'img/sem-imagem.png'}" alt="${evento.nome_evento}">
+                <img src="${evento.imagem || "img/sem-imagem.png"}" alt="${evento.nome_evento}">
             </a>
             <div class="texto-evento">
                 <p class="nome_show">${evento.nome_evento}</p>
@@ -86,7 +89,7 @@ function criarCardCarrossel(evento) {
 function criarItemPesquisa(evento) {
     return `
         <a href="views/informacao_evento.html?id=${evento.id}">
-            <img src="${evento.imagem || 'img/sem-imagem.png'}" alt="${evento.nome_evento}">
+            <img src="${evento.imagem || "img/sem-imagem.png"}" alt="${evento.nome_evento}">
             <div class="texto-evento">
                 <span class="data_evento">${formatarData(evento.data)}</span>
                 <p class="nome_show">${evento.nome_evento}</p>
@@ -106,43 +109,104 @@ async function carregarEventos() {
             return;
         }
 
-        const containerDestaques = document.querySelector(".eventos_destaque .linha_eventos");
+        const hoje = new Date();
+        const mesAtual = hoje.getMonth();
+        const anoAtual = hoje.getFullYear();
+
+        const eventosDestaque = eventos
+            .filter(evento => {
+                const dataEvento = new Date(evento.data);
+
+                return (
+                    dataEvento.getMonth() === mesAtual &&
+                    dataEvento.getFullYear() === anoAtual
+                );
+            })
+            .sort((a, b) => {
+                return new Date(a.data) - new Date(b.data);
+            })
+            .slice(0, 5);
+
+        const eventosProximos = eventos
+            .filter(evento => {
+                const dataEvento = new Date(evento.data);
+
+                return dataEvento > hoje;
+            })
+            .filter(evento => {
+                const dataEvento = new Date(evento.data);
+
+                return !(
+                    dataEvento.getMonth() === mesAtual &&
+                    dataEvento.getFullYear() === anoAtual
+                );
+            })
+            .sort((a, b) => {
+                return new Date(a.data) - new Date(b.data);
+            })
+            .slice(0, 5);
+
+        const containerDestaques = document.querySelector(
+            ".eventos_destaque .linha_eventos"
+        );
+
         if (containerDestaques) {
-            containerDestaques.innerHTML = eventos.slice(0, 5).map(criarCardEvento).join("");
+            containerDestaques.innerHTML = eventosDestaque
+                .map(criarCardEvento)
+                .join("");
         }
 
-        const containerProximos = document.querySelector(".eventos_proximos .linha_eventos");
+        const containerProximos = document.querySelector(
+            ".eventos_proximos .linha_eventos"
+        );
+
         if (containerProximos) {
-            const proximos = [...eventos].sort((a, b) => new Date(a.data) - new Date(b.data)).slice(0, 5);
-            containerProximos.innerHTML = proximos.map(criarCardEvento).join("");
-            
+            containerProximos.innerHTML = eventosProximos
+                .map(criarCardEvento)
+                .join("");
         }
 
         const carrosseis = document.querySelectorAll(".single-item");
+
         if (carrosseis[0]) {
-            carrosseis[0].innerHTML = eventos.slice(0, 5).map(criarCardCarrossel).join("");
+            carrosseis[0].innerHTML = eventosDestaque
+                .map(criarCardCarrossel)
+                .join("");
         }
+
         if (carrosseis[1]) {
-            const proximos = [...eventos].sort((a, b) => new Date(a.data) - new Date(b.data)).slice(0, 5);
-            carrosseis[1].innerHTML = proximos.map(criarCardCarrossel).join("");
+            carrosseis[1].innerHTML = eventosProximos
+                .map(criarCardCarrossel)
+                .join("");
         }
 
         const containerPesquisa = document.querySelector(".itens-pesquisa");
+
         if (containerPesquisa) {
-            containerPesquisa.querySelectorAll("a:not(#txt-vermais-eventos)").forEach(item => item.remove());
-            const htmlItens = eventos.slice(0, 20).map(criarItemPesquisa).join("");
-            containerPesquisa.insertAdjacentHTML("afterbegin", htmlItens);
+            containerPesquisa
+                .querySelectorAll("a:not(#txt-vermais-eventos)")
+                .forEach(item => item.remove());
+
+            const htmlItens = eventos
+                .slice(0, 20)
+                .map(criarItemPesquisa)
+                .join("");
+
+            containerPesquisa.insertAdjacentHTML(
+                "afterbegin",
+                htmlItens
+            );
         }
 
         if (window.jQuery) {
             jQuery(".single-item").slick({
-            dots: true,
-            autoplay: true,
-            arrows: true,
-        });
+                dots: true,
+                autoplay: true,
+                arrows: true
+            });
         }
 
-    console.log("PRONTO");
+        console.log("PRONTO");
     } catch (erro) {
         console.error("Erro:", erro);
     }
@@ -153,3 +217,4 @@ if (document.readyState === "loading") {
 } else {
     carregarEventos();
 }
+

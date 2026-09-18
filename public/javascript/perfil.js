@@ -1,74 +1,37 @@
 
-/* =========================================
-   AUTENTICAÇÃO
-========================================= */
-
 const token = localStorage.getItem("token");
 
-const botoesLogout =
-    document.querySelectorAll("#btn-logout");
+const botoesLogout = document.querySelectorAll("#btn-logout");
 
 botoesLogout.forEach(botao => {
-
     botao.addEventListener("click", () => {
-
-        const confirmacao =
-            confirm("Tem certeza que quer sair da conta?");
+        const confirmacao = confirm("Tem certeza que quer sair da conta?");
 
         if (confirmacao) {
-
             localStorage.removeItem("token");
             localStorage.removeItem("usuario");
 
             window.location.href = "../index.html";
-
         }
-
     });
-
 });
 
+// ELEMENTOS DO PERFIL
 
-/* =========================================
-   ELEMENTOS DO PERFIL
-========================================= */
+const nomePerfil = document.querySelector(".info-usuario h1");
+const descricaoPerfil = document.querySelector(".info-usuario p");
+const inputNome = document.getElementById("nome-usuario");
+const inputSobrenome = document.getElementById("sobrenome-usuario");
+const inputEmail = document.getElementById("email-usuario");
+const inputTelefone = document.getElementById("telefone-usuario");
+const selectEstado = document.getElementById("local");
+const btnSalvar = document.querySelector(".salvar");
+const modalSalvar = document.querySelector(".modal-salvar");
 
-const nomePerfil =
-    document.querySelector(".info-usuario h1");
-
-const descricaoPerfil =
-    document.querySelector(".info-usuario p");
-
-const inputNome =
-    document.getElementById("nome-usuario");
-
-const inputSobrenome =
-    document.getElementById("sobrenome-usuario");
-
-const inputEmail =
-    document.getElementById("email-usuario");
-
-const inputTelefone =
-    document.getElementById("telefone-usuario");
-
-const selectEstado =
-    document.getElementById("local");
-
-const btnSalvar =
-    document.querySelector(".salvar");
-
-const modalSalvar =
-    document.querySelector(".modal-salvar");
-
-
-/* =========================================
-   ESTADOS
-========================================= */
+// ESTADOS
 
 function transformarEstado(estado) {
-
     const estados = {
-
         "Acre": "acre",
         "Alagoas": "alagoas",
         "Amapá": "amapa",
@@ -96,79 +59,43 @@ function transformarEstado(estado) {
         "São Paulo": "sao-paulo",
         "Sergipe": "sergipe",
         "Tocantins": "tocantins"
-
     };
 
     return estados[estado] || "";
-
 }
-
 
 function nomeEstado(value) {
+    const option = selectEstado.querySelector(`option[value="${value}"]`);
 
-    const option =
-        selectEstado.querySelector(
-            `option[value="${value}"]`
-        );
-
-    return option
-        ? option.textContent
-        : value;
-
+    return option ? option.textContent : value;
 }
 
-
-/* =========================================
-   CARREGAR PERFIL
-========================================= */
+// CARREGAR PERFIL
 
 async function carregarPerfil() {
-
     if (!token) {
-
-        window.location.href =
-            "./login.html";
-
+        window.location.href = "./login.html";
         return;
-
     }
 
     try {
+        const resposta = await fetch("/usuarios/perfil", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
 
-        const resposta =
-            await fetch(
-                "/usuarios/perfil",
-                {
-                    method: "GET",
-
-                    headers: {
-                        "Authorization":
-                            `Bearer ${token}`
-                    }
-
-                }
-            );
-
-
-        const resultado =
-            await resposta.json();
-
+        const resultado = await resposta.json();
 
         if (!resposta.ok) {
-
             if (resposta.status === 401) {
-
                 localStorage.removeItem("token");
-
                 localStorage.removeItem("usuario");
 
-                window.location.href =
-                    "./login.html";
-
+                window.location.href = "./login.html";
                 return;
-
             }
-
 
             alert(
                 resultado.message ||
@@ -176,441 +103,230 @@ async function carregarPerfil() {
             );
 
             return;
-
         }
 
+        const usuario = resultado.usuario;
 
-        const usuario =
-            resultado.usuario;
+        // CABEÇALHO
 
+        nomePerfil.textContent = `${usuario.nome} ${usuario.sobrenome}`;
+        descricaoPerfil.textContent = `Explorador de eventos - ${usuario.estado}`;
 
-        /* CABEÇALHO */
+        // CAMPOS
 
-        nomePerfil.textContent =
-            `${usuario.nome} ${usuario.sobrenome}`;
+        inputNome.value = usuario.nome;
+        inputSobrenome.value = usuario.sobrenome;
+        inputEmail.value = usuario.email;
+        inputTelefone.value = usuario.telefone;
+        selectEstado.value = transformarEstado(usuario.estado);
 
+        // NOTIFICAÇÕES
 
-        descricaoPerfil.textContent =
-            `Explorador de eventos - ${usuario.estado}`;
+        const notificacaoEmail = document.querySelector(
+            'input[name="not-email"]'
+        );
 
+        const alertasEventos = document.querySelector(
+            'input[name="not-eventos"]'
+        );
 
-        /* CAMPOS */
-
-        inputNome.value =
-            usuario.nome;
-
-
-        inputSobrenome.value =
-            usuario.sobrenome;
-
-
-        inputEmail.value =
-            usuario.email;
-
-
-        inputTelefone.value =
-            usuario.telefone;
-
-
-        selectEstado.value =
-            transformarEstado(usuario.estado);
-
-
-        /* NOTIFICAÇÕES */
-
-        const notificacaoEmail =
-            document.querySelector(
-                'input[name="not-email"]'
-            );
-
-        const alertasEventos =
-            document.querySelector(
-                'input[name="not-eventos"]'
-            );
-
-        const notificacoesOfertas =
-            document.querySelector(
-                'input[name="not-ofertas"]'
-            );
-
+        const notificacoesOfertas = document.querySelector(
+            'input[name="not-ofertas"]'
+        );
 
         if (notificacaoEmail) {
-
-            notificacaoEmail.checked =
-                Boolean(
-                    usuario.notificacoes_email
-                );
-
+            notificacaoEmail.checked = Boolean(usuario.notificacoes_email);
         }
-
 
         if (alertasEventos) {
-
-            alertasEventos.checked =
-                Boolean(
-                    usuario.alertas_eventos
-                );
-
+            alertasEventos.checked = Boolean(usuario.alertas_eventos);
         }
-
 
         if (notificacoesOfertas) {
-
-            notificacoesOfertas.checked =
-                Boolean(
-                    usuario.notificacoes_ofertas
-                );
-
+            notificacoesOfertas.checked = Boolean(usuario.notificacoes_ofertas);
         }
 
+        // LOCAL STORAGE
 
-        /* LOCAL STORAGE */
-
-        localStorage.setItem(
-            "usuario",
-            JSON.stringify(usuario)
-        );
-
-
+        localStorage.setItem("usuario", JSON.stringify(usuario));
     } catch (erro) {
-
-        console.error(
-            "Erro ao carregar perfil:",
-            erro
-        );
-
-        alert(
-            "Não foi possível conectar com o servidor."
-        );
-
+        console.error("Erro ao carregar perfil:", erro);
+        alert("Não foi possível conectar com o servidor.");
     }
-
 }
-
 
 carregarPerfil();
 
-
-/* =========================================
-   SALVAR ALTERAÇÕES
-========================================= */
+// SALVAR ALTERAÇÕES
 
 if (btnSalvar) {
+    btnSalvar.addEventListener("click", async function(event) {
+        event.preventDefault();
 
-    btnSalvar.addEventListener(
-        "click",
-        async function(event) {
+        const nome = inputNome.value.trim();
+        const sobrenome = inputSobrenome.value.trim();
 
-            event.preventDefault();
+        if (!nome) {
+            alert("Digite seu nome.");
+            return;
+        }
 
+        if (!sobrenome) {
+            alert("Digite seu sobrenome.");
+            return;
+        }
 
-            const nome =
-                inputNome.value.trim();
+        const estado = nomeEstado(selectEstado.value);
 
+        const dados = {
+            nome: nome,
+            sobrenome: sobrenome,
+            email: inputEmail.value.trim(),
+            telefone: inputTelefone.value.trim(),
+            estado: estado
+        };
 
-            const sobrenome =
-                inputSobrenome.value.trim();
+        try {
+            const resposta = await fetch("/usuarios/perfil", {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(dados)
+            });
 
+            const resultado = await resposta.json();
 
-            if (!nome) {
-
-                alert("Digite seu nome.");
+            if (!resposta.ok) {
+                alert(
+                    resultado.message ||
+                    "Não foi possível salvar as alterações."
+                );
 
                 return;
-
             }
 
+            // ATUALIZA CABEÇALHO
 
-            if (!sobrenome) {
+            nomePerfil.textContent = `${dados.nome} ${dados.sobrenome}`;
+            descricaoPerfil.textContent = `Explorador de eventos - ${dados.estado}`;
 
-                alert("Digite seu sobrenome.");
+            // ATUALIZA LOCAL STORAGE
 
-                return;
+            const usuarioAtual = JSON.parse(
+                localStorage.getItem("usuario")
+            ) || {};
 
-            }
-
-
-            const estado =
-                nomeEstado(selectEstado.value);
-
-
-            const dados = {
-
-                nome: nome,
-
-                sobrenome: sobrenome,
-
-                email:
-                    inputEmail.value.trim(),
-
-                telefone:
-                    inputTelefone.value.trim(),
-
-                estado: estado
-
+            const usuarioAtualizado = {
+                ...usuarioAtual,
+                nome: dados.nome,
+                sobrenome: dados.sobrenome,
+                email: dados.email,
+                telefone: dados.telefone,
+                estado: dados.estado
             };
 
+            localStorage.setItem(
+                "usuario",
+                JSON.stringify(usuarioAtualizado)
+            );
 
-            try {
+            // MODAL
 
-                const resposta =
-                    await fetch(
-                        "/usuarios/perfil",
-                        {
-                            method: "PATCH",
+            modalSalvar.style.display = "flex";
 
-                            headers: {
-                                "Content-Type":
-                                    "application/json",
-
-                                "Authorization":
-                                    `Bearer ${token}`
-                            },
-
-                            body:
-                                JSON.stringify(dados)
-                        }
-                    );
-
-
-                const resultado =
-                    await resposta.json();
-
-
-                if (!resposta.ok) {
-
-                    alert(
-                        resultado.message ||
-                        "Não foi possível salvar as alterações."
-                    );
-
-                    return;
-
-                }
-
-
-                /* ATUALIZA CABEÇALHO */
-
-                nomePerfil.textContent =
-                    `${dados.nome} ${dados.sobrenome}`;
-
-
-                descricaoPerfil.textContent =
-                    `Explorador de eventos - ${dados.estado}`;
-
-
-                /* ATUALIZA LOCAL STORAGE */
-
-                const usuarioAtual =
-                    JSON.parse(
-                        localStorage.getItem("usuario")
-                    ) || {};
-
-
-                const usuarioAtualizado = {
-
-                    ...usuarioAtual,
-
-                    nome: dados.nome,
-
-                    sobrenome: dados.sobrenome,
-
-                    email: dados.email,
-
-                    telefone: dados.telefone,
-
-                    estado: dados.estado
-
-                };
-
-
-                localStorage.setItem(
-                    "usuario",
-                    JSON.stringify(usuarioAtualizado)
-                );
-
-
-                /* MODAL */
-
-                modalSalvar.style.display =
-                    "flex";
-
-
-                setTimeout(() => {
-
-                    modalSalvar.style.display =
-                        "none";
-
-                }, 1600);
-
-
-            } catch (erro) {
-
-                console.error(
-                    "Erro ao salvar perfil:",
-                    erro
-                );
-
-                alert(
-                    "Não foi possível conectar com o servidor."
-                );
-
-            }
-
+            setTimeout(() => {
+                modalSalvar.style.display = "none";
+            }, 1600);
+        } catch (erro) {
+            console.error("Erro ao salvar perfil:", erro);
+            alert("Não foi possível conectar com o servidor.");
         }
-    );
-
+    });
 }
 
+// ABRIR E FECHAR CAIXAS
 
-/* =========================================
-   ABRIR E FECHAR CAIXAS
-========================================= */
+const botoes = document.querySelectorAll(
+    ".btn-atividade, .btn-favoritos, .btn-config"
+);
 
-const botoes =
-    document.querySelectorAll(
-        ".btn-atividade, .btn-favoritos, .btn-config"
-    );
-
-
-const caixas =
-    document.querySelectorAll(
-        ".box-historico, .box-favoritos, .box-dados"
-    );
-
+const caixas = document.querySelectorAll(
+    ".box-historico, .box-favoritos, .box-dados"
+);
 
 function corTexto() {
-
     botoes.forEach(btn => {
-
-        btn.style.color =
-            "black";
-
+        btn.style.color = "black";
     });
-
 }
-
 
 function boxSome() {
-
     caixas.forEach(box => {
-
-        box.style.display =
-            "none";
-
+        box.style.display = "none";
     });
-
 }
 
+// ATIVIDADE
 
-/* ATIVIDADE */
+botoes[0].addEventListener("click", () => {
+    corTexto();
 
-botoes[0].addEventListener(
-    "click",
-    () => {
+    botoes[0].style.color = "#1A824D";
 
-        corTexto();
+    boxSome();
 
-        botoes[0].style.color =
-            "#1A824D";
+    caixas[0].style.display = "flex";
+});
 
-        boxSome();
+// FAVORITOS
 
-        caixas[0].style.display =
-            "flex";
+botoes[1].addEventListener("click", () => {
+    corTexto();
 
-    }
+    botoes[1].style.color = "#1A824D";
+
+    boxSome();
+
+    caixas[1].style.display = "flex";
+});
+
+// CONFIGURAÇÕES
+
+botoes[2].addEventListener("click", () => {
+    corTexto();
+
+    botoes[2].style.color = "#1A824D";
+
+    boxSome();
+
+    caixas[2].style.display = "flex";
+});
+
+// MODAL DE PREFERÊNCIAS
+
+const btnEscolherPreferencias = document.querySelector(
+    ".aplicar-preferencias"
 );
 
-
-/* FAVORITOS */
-
-botoes[1].addEventListener(
-    "click",
-    () => {
-
-        corTexto();
-
-        botoes[1].style.color =
-            "#1A824D";
-
-        boxSome();
-
-        caixas[1].style.display =
-            "flex";
-
-    }
-);
-
-
-/* CONFIGURAÇÕES */
-
-botoes[2].addEventListener(
-    "click",
-    () => {
-
-        corTexto();
-
-        botoes[2].style.color =
-            "#1A824D";
-
-        boxSome();
-
-        caixas[2].style.display =
-            "flex";
-
-    }
-);
-
-
-/* =========================================
-   MODAL DE PREFERÊNCIAS
-========================================= */
-
-const btnEscolherPreferencias =
-    document.querySelector(
-        ".aplicar-preferencias"
-    );
-
-
-const modal =
-    document.querySelector(".modal");
-
+const modal = document.querySelector(".modal");
 
 if (btnEscolherPreferencias) {
+    btnEscolherPreferencias.addEventListener("click", function(event) {
+        event.preventDefault();
 
-    btnEscolherPreferencias.addEventListener(
-        "click",
-        function(event) {
-
-            event.preventDefault();
-
-            modal.style.display =
-                "flex";
-
-        }
-    );
-
+        modal.style.display = "flex";
+    });
 }
 
-
-const btnAplicarModal =
-    document.querySelector(".aplicar");
-
+const btnAplicarModal = document.querySelector(".aplicar");
 
 if (btnAplicarModal) {
+    btnAplicarModal.addEventListener("click", function(event) {
+        event.preventDefault();
 
-    btnAplicarModal.addEventListener(
-        "click",
-        function(event) {
-
-            event.preventDefault();
-
-            modal.style.display =
-                "none";
-
-        }
-    );
-
+        modal.style.display = "none";
+    });
 }
 

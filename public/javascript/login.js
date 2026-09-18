@@ -1,16 +1,18 @@
+
 const btnLogin = document.getElementById("btn-login");
 const formLogin = document.querySelector("form");
 
 formLogin.addEventListener("submit", async function(event) {
-
     event.preventDefault();
 
     const email = document.getElementById("email");
     const senha = document.getElementById("senha");
     const inputs = [email, senha];
     let tudoPreenchido = true;
+
     inputs.forEach(input => {
         const barraInput = input.parentElement;
+
         if (input.value.trim() === "") {
             input.classList.add("placeholder-erro");
             barraInput.style.border = "1px solid red";
@@ -31,20 +33,15 @@ formLogin.addEventListener("submit", async function(event) {
     };
 
     try {
-        const resposta = await fetch(
-            "/auth/login",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dadosLogin)
-            }
-        );
-
+        const resposta = await fetch("/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dadosLogin)
+        });
 
         const resultado = await resposta.json();
-
 
         if (!resposta.ok) {
             alert(
@@ -56,31 +53,16 @@ formLogin.addEventListener("submit", async function(event) {
 
         console.log("Login realizado:", resultado);
 
-        localStorage.setItem(
-            "token",
-            resultado.token
-        );
-
+        localStorage.setItem("token", resultado.token);
         localStorage.setItem(
             "usuario",
             JSON.stringify(resultado.usuario)
         );
 
-
         window.location.href = "../views/perfil.html";
-
-
     } catch (erro) {
-
-        console.error(
-            "Erro ao realizar login:",
-            erro
-        );
-
-        alert(
-            "Não foi possível conectar com o servidor."
-        );
-
+        console.error("Erro ao realizar login:", erro);
+        alert("Não foi possível conectar com o servidor.");
     }
-
 });
+
