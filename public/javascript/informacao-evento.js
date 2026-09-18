@@ -27,7 +27,6 @@ const eventoId = params.get("id");
 
 
 async function carregarEvento() {
-
     if (!eventoId) {
         console.warn("Nenhum id na URL");
         return;
@@ -38,7 +37,6 @@ async function carregarEvento() {
         if (!resposta.ok) throw new Error("Evento não encontrado");
 
         const evento = await resposta.json();
-
         const carrosel = document.getElementById("carroselEvento");
 
         carrosel.style.backgroundImage =
@@ -54,8 +52,7 @@ async function carregarEvento() {
 
         document.getElementById("info-sobre").textContent = evento.descricao;
         document.getElementById("info-destaque").textContent = evento.destaque_evento || "--";
-        document.getElementById("info-capacidade").textContent =
-            `${evento.capacidade.toLocaleString("pt-BR")} pessoas`;
+        document.getElementById("info-capacidade").textContent = `${evento.capacidade.toLocaleString("pt-BR")} pessoas`;
         document.getElementById("info-hora-inicio").textContent = evento.hora_inicio.substring(0,5);
         document.getElementById("info-classificacao").textContent =
             `+${evento.classificacao_etaria} anos`;
